@@ -22,7 +22,7 @@ class Fastboot {
         _logService.error(
           _tag,
           'Initializing fastboot failed: ${result.stderr}',
-          StackTrace.current,
+          stackTrace: StackTrace.current,
         );
         throw PlatformToolsException(
           PlatformToolsExceptionType.platformToolsNotFound,

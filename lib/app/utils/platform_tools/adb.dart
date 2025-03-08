@@ -22,7 +22,7 @@ class Adb {
         _logService.error(
           _tag,
           'Initializing adb failed: ${result.stderr}',
-          StackTrace.current,
+          stackTrace: StackTrace.current,
         );
         throw PlatformToolsException(
           PlatformToolsExceptionType.platformToolsNotFound,
@@ -39,9 +39,13 @@ class Adb {
 
   Future<String> execute(List<String> arguments) async {
     _logService.debug(_tag, 'execute: $_adbPath $arguments');
-    return await Process.run(_adbPath, arguments).then((result) {
+
+    final result = await Process.run(_adbPath, arguments);
+    if (result.stderr == null || result.stderr == '') {
       return result.stdout;
-    });
+    } else {
+      return result.stderr;
+    }
   }
 
   // Get adb device list

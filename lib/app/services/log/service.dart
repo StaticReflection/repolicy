@@ -40,7 +40,7 @@ class LogService extends GetxService {
     _logger.w('$tag: ${message.toString().trim()}');
   }
 
-  void error(String tag, Object message, StackTrace? stackTrace) {
+  void error(String tag, Object message, {StackTrace? stackTrace}) {
     _logger.e(
       '$tag: ${message.toString().trim()} ${stackTrace.toString().trim()}',
     );

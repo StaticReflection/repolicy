@@ -35,9 +35,21 @@ void main() async {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
+  void _localLogWriter(String message, {bool isError = false}) {
+    const String tag = 'GetX';
+
+    if (isError) {
+      Get.find<LogService>().debug(tag, message);
+    } else {
+      Get.find<LogService>().error(tag, message);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      enableLog: true,
+      logWriterCallback: _localLogWriter,
       // Theme
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),

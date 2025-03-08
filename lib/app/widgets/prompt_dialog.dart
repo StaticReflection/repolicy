@@ -10,7 +10,7 @@ class PromptDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('prompt'.tr),
-      content: Text(content),
+      content: SelectableText(content),
       actions: [ElevatedButton(onPressed: Get.back, child: Text('confirm'.tr))],
     );
   }
