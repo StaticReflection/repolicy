@@ -17,7 +17,7 @@ class Adb {
     _logService = Get.find<LogService>();
     _logService.info(_tag, 'Initializing');
 
-    await Process.run('where', ['adb']).then((result) {
+    await Process.run('where', ['adb']).then((result) async {
       if (result.stderr != '') {
         _logService.error(
           _tag,
@@ -31,6 +31,8 @@ class Adb {
       } else {
         _adbPath = result.stdout.trim();
         _logService.info(_tag, 'ADB path: $_adbPath');
+        _logService.debug(_tag, 'starting ADB server');
+        await execute(['start-server']);
       }
     });
 
