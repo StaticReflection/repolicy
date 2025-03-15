@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:repolicy/app/enum/power_action.dart';
@@ -42,7 +43,12 @@ class Adb {
   Future<String> execute(List<String> arguments) async {
     _logService.debug(_tag, 'execute: $_adbPath $arguments');
 
-    final result = await Process.run(_adbPath, arguments);
+    final result = await Process.run(
+      _adbPath,
+      arguments,
+      stdoutEncoding: utf8,
+      stderrEncoding: utf8,
+    );
     if (result.stderr == null || result.stderr == '') {
       return result.stdout;
     } else {
